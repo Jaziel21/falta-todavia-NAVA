@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="soft-card p-4">
+    <h2>🏢 Lista de Editoriales</h2>
+    
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>País</th>
+                    <th>Teléfono</th>
+                    <th>Email</th>
+                    <th>Libros</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for editorial in editoriales %}
+                <tr>
+                    <td><small class="text-muted">#{{ editorial.editorialid }}</small></td>
+                    <td>
+                        <strong>{{ editorial.nombreeditorial }}</strong>
+                        {% if editorial.sitioweb %}
+                            <br>
+                            <small>
+                                <a href="{{ editorial.sitioweb }}" target="_blank" class="text-decoration-none">
+                                    🌐 Sitio web
+                                </a>
+                            </small>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <span class="badge bg-info text-dark">{{ editorial.paisorigen }}</span>
+                    </td>
+                    <td>{{ editorial.telefono }}</td>
+                    <td>
+                        <a href="mailto:{{ editorial.emailcontacto }}" class="text-decoration-none">
+                            {{ editorial.emailcontacto }}
+                        </a>
+                    </td>
+                    <td>
+                        <span class="badge bg-primary">
+                            {{ editorial.libros.count }} libro(s)
+                        </span>
+                    </td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <a href="{% url 'actualizar_editorial' editorial.editorialid %}" class="btn btn-warning">Editar</a>
+                            <a href="{% url 'borrar_editorial' editorial.editorialid %}" class="btn btn-danger">Borrar</a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center text-muted py-4">
+                        No hay editoriales registradas
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="mt-3">
+        <a href="{% url 'agregar_editorial' %}" class="btn btn-primary">
+            ➕ Agregar Nueva Editorial
+        </a>
+        <a href="{% url 'inicio_libreria' %}" class="btn btn-outline-secondary">
+            🏠 Volver al Inicio
+        </a>
+    </div>
+</div>
+{% endblock %}

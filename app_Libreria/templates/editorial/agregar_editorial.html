@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="soft-card p-4">
+    <h2>🏢 Agregar Editorial</h2>
+    
+    {% if error %}
+    <div class="alert alert-danger">
+        {{ error }}
+    </div>
+    {% endif %}
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Nombre de la editorial *</label>
+                    <input type="text" class="form-control" name="nombreeditorial" required 
+                           placeholder="Ej: Penguin Random House">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Dirección *</label>
+                    <input type="text" class="form-control" name="direccion" required
+                           placeholder="Ej: Av. Principal #123">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Teléfono *</label>
+                    <input type="text" class="form-control" name="telefono" required
+                           placeholder="Ej: +52 555 123 4567">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Email de contacto *</label>
+                    <input type="email" class="form-control" name="emailcontacto" required
+                           placeholder="contacto@editorial.com">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Sitio web</label>
+                    <input type="url" class="form-control" name="sitioweb"
+                           placeholder="https://www.ejemplo.com">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">País de origen *</label>
+                    <input type="text" class="form-control" name="paisorigen" required
+                           placeholder="Ej: Estados Unidos">
+                </div>
+            </div>
+        </div>
+        
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="{% url 'ver_editoriales' %}" class="btn btn-secondary me-md-2">Cancelar</a>
+            <button type="submit" class="btn btn-success">Guardar Editorial</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
